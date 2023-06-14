@@ -1,0 +1,58 @@
+SOLUTION WHICH IS GIVING ME TLE
+string reverseString(string &str){
+	int size = str.length();
+    string result = "";
+    int i = 0;
+    while(i < size){
+    while(str[i] == ' ' && i < size)i++;
+     if(i >= size)break;//MOST IMP LINE
+    int j = i+1;
+    while(j < size && str[j] != ' ')j++;
+    string substring = str.substr(i,j-i);
+    //i = staring position   j-i = size of the substr
+    if(result.length() == 0){
+        // cout << result.length();
+        result = substring;
+    }
+    else{
+    result = substring + ' ' + result;
+    }
+    i = j+1;
+    }
+
+    return result;
+    	
+}
+
+
+SOLUTION USING STACK
+#include<bits/stdc++.h>
+string reverseString(string &s){
+	 string temp = "";
+       stack<string>st;
+       for(int i=0; i<s.size();i++){
+           char ch = s[i];
+           if(ch == ' '){
+               if(temp != "")
+                   st.push(temp);
+               temp = "";
+           }
+
+           else
+            temp+=ch;
+       }
+
+       if(temp!=""){
+           st.push(temp);
+       }
+       string ans = "";
+
+       while(!st.empty()){
+           ans+=(st.top()+" ");
+           st.pop();
+       }
+       ans.pop_back();
+
+       return ans;
+    	
+}
