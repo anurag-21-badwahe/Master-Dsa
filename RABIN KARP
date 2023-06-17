@@ -25,4 +25,36 @@ vector<int> stringMatch(string &haystack, string &needle) {
 }
 // THE ABOVE CODE IS NOT ABLE TO PASS ALL TEST CASE
 
+vector<int> stringMatch(string &haystack, string &needle) {
+         int strLen1 = haystack.length();
+        int  strLen2 = needle.length();
+        vector<int>ans;
+        int j = 0;
+        int i = 0;
+        while(i < strLen1){
+            // as long as the characters are equal, increment needleIndex
+            if(haystack[i] == needle[j]){
+                j++;
+                i++;
+            }
+            else{
+                // start from the next index of previous start index
+                i=i-j;
+                i++;
+                // needle should start from index 0
+                j=0;
+            }
+            // check if needleIndex reached needle length
+            if(j == strLen2){
+                // return the first index
+                ans.push_back((i-strLen2)+1);
+                i= (i-strLen2)+1;
+                j = 0;
+                // i++;
+            }
+        }
+        return ans;
+}
+
+
 
