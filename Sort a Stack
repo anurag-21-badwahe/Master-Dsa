@@ -1,0 +1,35 @@
+#include <bits/stdc++.h> 
+void sortedInsert(stack<int>&s,int temp){
+
+	//base case
+	if(s.empty() || s.top() < temp){
+		s.push(temp);
+		return;
+	}
+
+	int n = s.top();
+	s.pop();
+
+	//recursive call
+	sortedInsert(s,temp);
+
+	s.push(n);
+}
+
+
+void sortStack(stack<int> &s)
+{
+	//base case
+	if(s.empty())return;
+
+	//taking the top element of the stack and insert in it correct position
+	int temp = s.top();
+	s.pop();
+
+    //recursive call
+	sortStack(s);
+
+	//Now insert the temp at its correct position
+	sortedInsert(s,temp);
+
+}
