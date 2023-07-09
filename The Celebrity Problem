@@ -53,3 +53,52 @@ int findCelebrity(int n) {
     return celebrity;
         
     }
+
+
+
+//better Apporch
+#include <bits/stdc++.h> 
+/*
+	This is signature of helper function 'knows'.
+	You should not implement it, or speculate about its implementation.
+
+	bool knows(int A, int B); 
+	Function 'knows(A, B)' will returns "true" if the person having
+	id 'A' know the person having id 'B' in the party, "false" otherwise.
+*/
+
+int findCelebrity(int n) {
+ 	 int start = 0;
+	 int end = n-1;
+
+
+	    while(start < end)
+        {
+            if(M[start][end] == 1){
+                //start knows end so it cant be celebrity
+                start++;
+            }
+            else{
+                end--;
+            }
+        }
+    
+	int mayCel = start;
+    //Checking that the celebrity not know anyone
+    for(int i = 0; i < n; i++){
+       if(knows(mayCel, i) == 1){
+            return -1;
+        }
+    }
+    
+    // we also have to check that everyone knowa the celerity
+    for(int i = 0; i < n; i++){
+        if(i != mayCel && knows(i, mayCel) != 1){
+            return -1;
+        }
+    }
+    
+	int celebrity = mayCel;
+    return celebrity;
+        
+    }
