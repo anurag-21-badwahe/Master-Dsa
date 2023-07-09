@@ -1,0 +1,55 @@
+#include <bits/stdc++.h> 
+/*
+	This is signature of helper function 'knows'.
+	You should not implement it, or speculate about its implementation.
+
+	bool knows(int A, int B); 
+	Function 'knows(A, B)' will returns "true" if the person having
+	id 'A' know the person having id 'B' in the party, "false" otherwise.
+*/
+
+int findCelebrity(int n) {
+ 	     stack<int>st;
+        // pushing all elements into the stack
+        for(int i = 0; i < n; i++){
+            st.push(i);
+        }
+        
+        //Now checking the elments of the stack that they can be celebrity or not
+        
+    while(st.size() > 1){
+        int a = st.top();
+        st.pop();
+        
+        int b = st.top();
+        st.pop();
+        
+        if(knows(a, b) == 0){
+            st.push(a);
+        }
+        else{
+            st.push(b);
+        }
+    }
+    
+    int mayCel = st.top();
+    
+    
+    //Checking that the celebrity not know anyone
+    for(int i = 0; i < n; i++){
+       if(knows(mayCel, i) == 1){
+            return -1;
+        }
+    }
+    
+    // we also have to check that everyone knowa the celerity
+    for(int i = 0; i < n; i++){
+        if(i != mayCel && knows(i, mayCel) != 1){
+            return -1;
+        }
+    }
+    
+	int celebrity = mayCel;
+    return celebrity;
+        
+    }
