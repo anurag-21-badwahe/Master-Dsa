@@ -1,0 +1,16 @@
+//Brute Force Apporch 
+//T.C = o(n^2)
+
+#include<bits/stdc++.h>
+vector<int> maxSlidingWindow(vector<int> &arr, int n, int k){
+    vector<int>ans;
+    for(int i = 0; i <= n-k; i++){
+    int maxi = arr[i];
+       for(int j = i+1; j < i+k;j++){
+        //    he loop condition j <= i+k is incorrect because it exceeds the bounds of the array. It should be j < i+k
+             maxi = max(maxi,arr[j]);
+       }
+       ans.push_back(maxi);
+    }
+    return ans;
+}
