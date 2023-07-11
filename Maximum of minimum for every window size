@@ -1,0 +1,52 @@
+#include <bits/stdc++.h> 
+vector<int> maxMinWindow(vector<int> arr, int n) {
+ stack<int> st;
+
+ vector<int> left(n), right(n);
+
+// Find the left nearest smaller elements
+for (int i = 0; i < n; i++)
+{
+    while (!st.empty() && arr[st.top()] >= arr[i])
+        st.pop();
+    if (!st.empty())
+        left[i] = st.top();
+    else
+        left[i] = -1;
+    st.push(i);
+}
+
+// Clear the stack for the next step
+while (!st.empty())
+    st.pop();
+
+// Find the right nearest smaller elements
+for (int i = n - 1; i >= 0; i--)
+{
+    while (!st.empty() && arr[st.top()] >= arr[i])
+        st.pop();
+    if (!st.empty())
+        right[i] = st.top();
+    else
+        right[i] = n;
+    st.push(i);
+}
+
+vector<int> result(n + 1, INT_MIN);
+for (int i = 0; i < n; i++)
+{
+    int windowSize = right[i] - left[i] - 1;
+    result[windowSize] = max(result[windowSize], arr[i]);
+}
+
+// Fill the missing values in the result array
+for (int i = n - 1; i >= 1; i--)
+{
+    result[i] = max(result[i], result[i + 1]);
+}
+
+// Remove the first element (initialized as 0)
+result.erase(result.begin());
+
+return result;
+}
