@@ -1,0 +1,22 @@
+#include <bits/stdc++.h> 
+void sort012(int *arr, int n)
+{
+   //Using two pointer technique to sort the array we are going to put 0 ans 2 in it correct poaition by doing this 1 will automatically get placed in its correct positon
+   int ptr1 = 0;
+   int ptr2 = n-1;
+   int itr = 0;
+
+   while(itr <= ptr2){
+      switch(arr[itr]){
+          case 0:
+               swap(arr[itr++],arr[ptr1++]);
+               break;
+          case 1:
+                itr++;     
+                break;
+          case 2:
+                swap(arr[itr],arr[ptr2--]);     
+                break;  
+      }
+   }
+}
