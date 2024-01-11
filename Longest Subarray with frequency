@@ -1,0 +1,29 @@
+#include <map>
+using namespace std;
+
+int longestSubarray(vector<int>& fruits) {
+    int n = fruits.size();
+    int maxCount = 0;
+    int left = 0;
+    map<int,int>freq; // Assuming elements in fruits are in the range [1, 100000]
+    int distinctCount = 0;
+
+    for (int right = 0; right < n; right++) {
+        if (freq[fruits[right]] == 0) {
+            distinctCount++;
+        }
+        freq[fruits[right]]++;
+
+        while (distinctCount > 2) {
+            freq[fruits[left]]--;
+            if (freq[fruits[left]] == 0) {
+                distinctCount--;
+            }
+            left++;
+        }
+
+        maxCount = max(maxCount, right - left + 1);
+    }
+
+    return maxCount;
+}
