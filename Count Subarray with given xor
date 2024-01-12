@@ -1,0 +1,17 @@
+#include <bits/stdc++.h>
+
+int subarraysXor(vector<int> &arr, int x)
+{
+    map<int,int>mpp;
+    int ansCount = 0;
+    int subarrays_Xor = 0;
+    mpp[subarrays_Xor]++;  //Intilized map with [0,1];
+    for(int i = 0; i < arr.size() ; i++){
+        subarrays_Xor = subarrays_Xor^arr[i];
+        int k = x^subarrays_Xor;
+        ansCount += mpp[k];        
+        mpp[subarrays_Xor]++;
+    }
+    return ansCount;
+
+}
