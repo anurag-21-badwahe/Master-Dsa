@@ -1,0 +1,28 @@
+
+
+void allPath(BinaryTreeNode<int> *root, std::vector<std::string> &ans, std::string str) {
+    if (root == NULL)
+        return;
+
+    string s = to_string(root->data);
+    if (root->right == NULL && root->left == NULL) {
+        ans.push_back(str + s);
+        return;
+    }
+
+    if (root->left != NULL) {
+        allPath(root->left, ans, str + s + " ");
+    }
+    if (root->right != NULL) {
+        allPath(root->right, ans, str + s + " ");
+    }
+
+    return;
+}
+
+vector<string> allRootToLeaf(BinaryTreeNode<int> *root) {
+    vector<string> ans;
+    string str = "";
+    allPath(root, ans, str);
+    return ans;
+}
