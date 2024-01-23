@@ -1,0 +1,41 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+#include<queue>
+vector<int> levelOrder(TreeNode<int> * root)
+{
+   queue<TreeNode<int>*>q;
+   q.push(root);
+   vector<int>ans;
+   
+   while(!q.empty()){
+       TreeNode<int>* Node = q.front();
+       ans.push_back(Node->data); 
+       q.pop();
+
+       if(Node->left){
+           q.push(Node->left);
+       }
+        if(Node->right){
+           q.push(Node->right);
+       } 
+   }
+   return ans;
+   
+}
