@@ -1,0 +1,14 @@
+int getHeight(TreeNode<int> *root,int ans){
+    if(root == NULL)return 0;
+
+    int leftHeight = getHeight(root->left,ans)+1;
+    int rightHeight = getHeight(root->right,ans)+1;
+
+    return max(leftHeight,rightHeight);
+}
+
+int heightOfBinaryTree(TreeNode<int> *root)
+{
+
+	return getHeight(root,0);
+}
