@@ -1,0 +1,19 @@
+int getHeight(TreeNode<int> *root){
+    if(root == NULL)return 0;
+
+    int leftHeight = getHeight(root->left);
+    int rightHeight = getHeight(root->right);
+
+    return max(leftHeight,rightHeight)+1;
+}
+
+bool isBalancedBT(TreeNode<int>* root){
+   if(root == NULL) return true;
+
+   int rh = getHeight(root->right);
+   int lh = getHeight(root->left);
+
+   if(abs(rh-lh) > 1)return false;
+
+   return isBalancedBT(root->left) && isBalancedBT(root->right);
+}
