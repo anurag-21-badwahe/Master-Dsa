@@ -1,0 +1,46 @@
+bool isLeaf(TreeNode<int> *root){
+    return (!root->left && !root->right);
+}
+
+void leftBoundary(TreeNode<int> *root,vector<int>&ans){
+    if (root == nullptr) return;
+    if (!isLeaf(root)) ans.push_back(root->data);
+    if (root->left) {
+        leftBoundary(root->left, ans);
+    } else {
+        leftBoundary(root->right, ans);
+    }
+
+}
+
+void rightBoundary(TreeNode<int> *root,vector<int>&ans){
+    if (root == nullptr) return;
+    if (root->right) {
+        rightBoundary(root->right, ans);
+    } else {
+        rightBoundary(root->left, ans);
+    }
+    if (!isLeaf(root)) ans.push_back(root->data);
+}
+
+void bottomBoundary(TreeNode<int> *root,vector<int>&ans){
+    if (root == nullptr) return;
+    bottomBoundary(root->left, ans);
+    if (isLeaf(root)) ans.push_back(root->data);
+    bottomBoundary(root->right, ans);
+
+
+}
+
+vector<int> traverseBoundary(TreeNode<int> *root)
+{
+    vector<int> ans;
+  if (root == nullptr) return ans; // Handle the case where the tree is empty
+
+    ans.push_back(root->data);
+    leftBoundary(root->left, ans);
+    bottomBoundary(root, ans);
+    rightBoundary(root->right, ans);
+
+    return ans;
+}
