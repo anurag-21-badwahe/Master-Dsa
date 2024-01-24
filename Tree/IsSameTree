@@ -1,0 +1,51 @@
+//Recursive Solution
+bool identicalTrees(BinaryTreeNode<int>* root1, BinaryTreeNode<int>* root2) {
+    if(!root1||!root2) return root1==root2;
+    return (root1->data==root2->data) && identicalTrees(root1->left, root2->left) 
+    && identicalTrees(root1->right, root2->right);
+
+}
+
+
+//Iterative solution
+void inorder(vector<int>&p,BinaryTreeNode<int>* root){
+
+    if (root != NULL) {
+
+ 
+
+      inorder(p, root->left);
+
+      p.push_back(root->data);
+
+      inorder(p, root->right);
+
+    }
+
+}
+
+ 
+
+bool identicalTrees(BinaryTreeNode<int>* root1, BinaryTreeNode<int>* root2) {
+
+     vector<int> in1,in2;
+
+    
+
+     inorder( in1, root1);
+
+     inorder(in2, root2);
+
+     if (in1 == in2) {
+
+       return true;
+
+     } 
+
+     else {
+
+       return false;
+
+     }
+
+}
