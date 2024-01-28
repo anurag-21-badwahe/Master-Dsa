@@ -1,0 +1,26 @@
+TreeNode<int>* buildTree(vector<int>&inorder,int inS,int inE,vector<int>&preorder,
+int preS,int preE,unordered_map<int,int>&mpp)
+{
+    if(inS > inE || preS > preE) return NULL;
+	TreeNode<int>* root = new TreeNode<int>(preorder[preS]);
+
+	int inRoot = mpp[root->data];
+	int numsLeft = inRoot-inS;
+
+    root->left = buildTree(inorder,inS,inRoot-1,preorder,preS+1,preS+numsLeft,mpp);
+    root->right = buildTree(inorder,inRoot+1,inE,preorder,preS+numsLeft+1,preE,mpp);
+	
+	return root;
+}
+TreeNode<int> *buildBinaryTree(vector<int> &inorder, vector<int> &preorder)
+{
+	TreeNode<int>* ans; 
+	unordered_map<int,int>mpp;
+	for (int i = 0; i < inorder.size(); ++i) {
+        mpp[inorder[i]] = i;
+    }
+
+	ans = buildTree(inorder,0,inorder.size()-1,preorder,0,preorder.size()-1,mpp);
+	return ans;
+    
+}
