@@ -24,3 +24,5 @@ TreeNode<int> *buildBinaryTree(vector<int> &inorder, vector<int> &preorder)
 	return ans;
     
 }
+
+//After this must tdo the similar question of inorder and postorder
