@@ -1,0 +1,27 @@
+int getRootIndex(vector<int>& inorder, int element) {
+    for (int i = 0; i < inorder.size(); i++) {
+        if (inorder[i] == element) return i;
+    }
+    return -1;
+}
+
+TreeNode<int>* buildTree(vector<int>& inorder, int inorderS, int inorderE,
+                         vector<int>& postorder, int postorderS, int postorderE) {
+    if (inorderS > inorderE || postorderS > postorderE) return NULL;
+
+    int root = postorder[postorderE];
+    int rootInd = getRootIndex(inorder, root);
+    int subTreeSize = rootInd - inorderS;
+
+    TreeNode<int>* node = new TreeNode<int>(root);
+
+    // Calculate indices for the left and right subtrees
+    node->left = buildTree(inorder, inorderS, rootInd - 1, postorder, postorderS, postorderS + subTreeSize - 1);
+    node->right = buildTree(inorder, rootInd + 1, inorderE, postorder, postorderS + subTreeSize, postorderE - 1);
+
+    return node;
+}
+
+TreeNode<int>* getTreeFromPostorderAndInorder(vector<int>& postorder, vector<int>& inorder) {
+    return buildTree(inorder, 0, inorder.size() - 1, postorder, 0, postorder.size() - 1);
+}
