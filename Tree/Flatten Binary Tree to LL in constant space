@@ -1,0 +1,28 @@
+void flattenBinaryTree(TreeNode<int> *root)
+{
+    while (root != NULL)
+    {
+        if (root->left != NULL)
+        {
+            // Place the right subtree at its correct position (according to the linked list).
+            // To do this, find the rightmost node present in the left subtree.
+            TreeNode<int> *prev = root->left;
+
+            while (prev->right != NULL)
+            {
+                prev = prev->right;
+            }
+
+            // Make the right subtree of the current node as right child of "prev".
+            prev->right = root->right;
+
+            // Make the left subtree of the current node as the new right subtree.
+            root->right = root->left;
+
+            root->left = NULL;
+        }
+
+        // Set the right child of the node as the current node.
+        root = root->right;
+    }
+}
