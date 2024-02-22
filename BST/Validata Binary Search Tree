@@ -1,0 +1,14 @@
+ bool isBST(TreeNode* root, long long minBound, long long maxBound) {
+    if (root == NULL) return true;
+
+    if (root->val <= minBound || root->val >= maxBound) // Adjusted condition
+        return false;
+
+    // Recursively check left and right subtrees with updated constraints
+    return isBST(root->left, minBound, root->val) && isBST(root->right, root->val, maxBound);
+}
+
+bool isValidBST(TreeNode* root) {
+    // Use long long for bounds to handle edge cases where node values might be INT_MIN or INT_MAX
+    return isBST(root, LLONG_MIN, LLONG_MAX);
+}
