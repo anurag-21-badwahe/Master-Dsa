@@ -1,0 +1,32 @@
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int>ans;
+        if(root == nullptr) return ans;
+
+        map<int,int>mpp;
+        queue<pair<TreeNode*,int>>q;
+
+        q.push({root,0});
+
+        while(!q.empty()){
+            auto it = q.front();
+            q.pop();
+            
+            TreeNode* data = it.first;
+            int level = it.second;
+
+            if(mpp.find(level) == mpp.end()){
+                mpp[level] = data->val;
+            }
+            if(data->right){
+                q.push({data->right,level+1});
+            }
+            if(data->left){
+                q.push({data->left,level+1});
+            } 
+        }
+
+        for(auto it : mpp){
+            ans.push_back(it.second);
+        }
+        return ans;
+    }
