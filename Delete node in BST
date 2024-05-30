@@ -1,0 +1,18 @@
+ TreeNode* deleteNode(TreeNode* root, int key) {
+        if(root) {
+            if(key < root->val) root->left = deleteNode(root->left, key);     //We frecursively call the function until we find the target node
+            else if(key > root->val) root->right = deleteNode(root->right, key);       
+            else{ // Here we found the element
+                if(!root->left && !root->right) return NULL;          //No child condition
+                if (!root->left || !root->right)
+                    return root->left ? root->left : root->right;    //One child contion -> replace the node with it's child
+					                                                //Two child condition   
+                TreeNode* temp = root->left;                        //(or) TreeNode *temp = root->right;
+                while(temp->right != NULL) temp = temp->right;     //      while(temp->left != NULL) temp = temp->left;
+                root->val = temp->val;                            //       root->val = temp->val;
+                root->left = deleteNode(root->left, temp->val);  //        root->right = deleteNode(root->right, temp);		
+                //In the example above when you overwrite the value 20 (root) by 19 (temp), the node with value 19 is still there. You need to delete that node because it's supposed to take place of the node with value 20. The easiest way to delete is just to call deleteNode(root->left, temp->val) where temp->val is 19.
+            }
+        }
+        return root;
+    }   
