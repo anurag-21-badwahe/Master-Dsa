@@ -1,0 +1,43 @@
+class Solution{
+    public:
+    class TreeNode{
+        public:
+        int mini;
+        int maxi;
+        int size;
+        bool isBst;
+    };
+    
+    TreeNode findLargestBst(Node* root, int &ans){
+        if(root == NULL)return {INT_MAX,INT_MIN,0,true};// return TreeNode* type object
+        
+        TreeNode leftptr = findLargestBst(root->left,ans);
+        TreeNode rightptr = findLargestBst(root->right,ans);
+        
+        TreeNode curr;
+        
+        curr.size = leftptr.size + rightptr.size + 1;
+        curr.mini = min(root->data,leftptr.mini);
+        curr.maxi = max(root->data,rightptr.maxi);
+        
+        if(leftptr.isBst && rightptr.isBst && root->data > leftptr.maxi && root->data < rightptr.mini){
+            curr.isBst = true;
+        }
+        else curr.isBst = false;
+        
+        if(curr.isBst){
+            ans = max(ans,curr.size);
+        }
+        
+        return curr;
+    }
+    
+    //Dry run of this code is here : https://chatgpt.com/c/a98b487e-1a98-4a3d-a193-aae910153b2e
+    
+    
+    int largestBst(Node *root)
+    {
+      int ans = 0;
+      findLargestBst(root,ans);
+      return ans;
+    }
