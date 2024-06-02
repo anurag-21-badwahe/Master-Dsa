@@ -1,0 +1,27 @@
+bool isSafe(int node,int colors[],bool graph[101][101],int n,int i){
+        
+        for(int adj = 0; adj < n; adj++){
+            if(graph[adj][i] && colors[adj] == i)return false;
+        }
+        return true;
+    }
+
+    bool solve(int node,bool graph[101][101],int m, int n,int colors[]){
+        if(node == n){
+            return true; //this means we traverse all the nodes
+        }
+        
+        for(int i = 1; i <= m; i++){// trying out all posible colors
+           if(isSafe(node,colors,graph,n,i)){//is can we colors colors the node on which we are stading on
+               colors[node] = i;
+               if(solve(node+1,graph,m,n,colors))return true;
+               colors[i] = 0; //backtrack
+           }
+        }
+        return false;
+    }
+    
+    bool graphColoring(bool graph[101][101], int m, int n) {
+       int colors[n] = {0};
+       return solve(0,graph,m,n,colors);
+    }
