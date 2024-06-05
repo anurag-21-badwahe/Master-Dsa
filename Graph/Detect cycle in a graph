@@ -1,0 +1,37 @@
+private:
+  bool detectCycle(int node,vector<int>adj[],int vis[]){
+    //   {parent,child}
+      queue<pair<int,int>>q;
+      q.push({-1,node});
+      vis[node] = 1;
+      
+      while(!q.empty()){
+          auto it = q.front();
+          int parent = it.first;
+          int child = it.second;
+          q.pop();
+          
+         for(auto itr : adj[child]){
+           if(!vis[itr]){
+               vis[itr] = 1;
+               q.push({child,itr});
+           }
+           else if(parent != itr && vis[itr]){
+               return true;
+           }
+         } 
+      }
+      return false;
+  }
+ 
+  public:
+  //Here are using bfs traversal to detect cycle
+    bool isCycle(int V, vector<int> adj[]) {
+        int vis[V] = {0};
+        for(int i=0; i<V; i++){
+            if(!vis[i] && detectCycle(i, adj, vis)){
+                return 1;
+            }
+        }
+        return 0;
+    }
