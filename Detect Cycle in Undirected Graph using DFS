@@ -1,0 +1,27 @@
+private:
+    bool detectCycle(int node,int parent,vector<int>adj[],int visited[]){
+        
+        visited[node] = 1;
+        for(auto it : adj[node]){
+            if(!visited[it]){
+                if(detectCycle(it,node,adj,visited))return true;
+            }
+            else if((visited[it]) && (it != parent)){
+                return true; // means cycle is detected
+            }
+        }
+        return false;
+    }
+     
+  public:
+    // Function to detect cycle in an undirected graph.
+    bool isCycle(int V, vector<int> adj[]) {
+      int visited[V] = {0};
+   
+        for(int i=0; i<V; i++){
+          int node = i;
+          int parent = -1;
+          if(!visited[i] && (detectCycle(node,parent,adj,visited)))return true;
+      }
+      return false;
+    }
