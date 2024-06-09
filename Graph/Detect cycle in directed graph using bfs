@@ -1,0 +1,38 @@
+ public:
+    // Function to detect cycle in a directed graph using BFS(TOPOLOGICAL SORT).
+    bool isCyclic(int V, vector<int> adj[]) {
+        int indegree[V] = {0};
+        
+        for(int i = 0; i < V; i++){
+            for(auto it : adj[i]){
+                indegree[it]++;
+            }
+        }
+        
+        queue<int>q;
+        for(int i = 0; i < V; i++){
+            if(indegree[i] == 0){
+                q.push(i);
+            }
+        }
+        
+        while(!q.empty()){
+            int front = q.front();
+            q.pop();
+            
+            for(auto it : adj[front]){
+                indegree[it]--;
+                 if(indegree[it] == 0){
+                   q.push(it);
+                 }
+            }
+        }
+        // we are checking if after BFS, the indegree array has all elements with 0 as
+        //their values.If not, then there is a cycle which exists.We are not taking a ans
+        // array to store the traversal and check the size of array to detect a cycle
+      
+        for(int i = 0; i < V; i++){
+            if(indegree[i] != 0)return true;
+        }
+        return false;
+    }
