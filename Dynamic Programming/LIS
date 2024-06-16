@@ -1,0 +1,31 @@
+class Solution {
+private:
+    int solve(int ind, int prev, int n, vector<int>& nums, vector<vector<int>>& dp) {
+        // base case
+        if (ind == n) return 0;
+        
+        // check if the result is already computed
+        if (dp[ind][prev+1] != -1) return dp[ind][prev+1]; // we not have -1 in the array that way we
+                                                           // use prev = prev+1 means
+        
+        // case 1: do not include nums[ind] in the LIS
+        int len = solve(ind+1, prev, n, nums, dp);
+        
+        // case 2: include nums[ind] in the LIS if it is larger than the previous element
+        if (prev == -1 || nums[ind] > nums[prev]) {
+            len = max(len, 1 + solve(ind+1, ind, n, nums, dp));
+        }
+        
+        // store the result in dp array
+        dp[ind][prev+1] = len;
+        
+        return dp[ind][prev+1];
+    }
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        // initialize dp array with -1
+        vector<vector<int>> dp(n, vector<int>(n+1, -1));
+        return solve(0, -1, n, nums, dp);
+    }
+};
