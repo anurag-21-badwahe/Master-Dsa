@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int M = coins.size();
+        vector<int> prev(amount + 1, INT_MAX), curr(amount + 1, INT_MAX);
+        for (int amt = 0; amt <= amount; amt++) {
+            if (amt % coins[0] == 0) {
+                prev[amt] = amt / coins[0];
+            }
+        }
+
+        for (int ind = 1; ind < M; ind++) {
+            for (int amt = 0; amt <= amount; amt++) {
+                int notTake = prev[amt];
+                int take = INT_MAX;
+                if (coins[ind] <= amt) {
+                    int res = curr[amt - coins[ind]];
+                    if (res != INT_MAX) {
+                        take = 1 + res;
+                    }
+                }
+                curr[amt] = min(take, notTake);
+            }
+            prev = curr;
+        }
+
+        int result = prev[amount];
+        return result == INT_MAX ? -1 : result;
+
+    }	  
+    
+};
