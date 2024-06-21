@@ -1,0 +1,26 @@
+class Solution {
+private:
+    int helper(string text1,int i,int j){
+          // Base case: If either index is negative, no common subsequence
+            // if pointers crosses each other return 0
+            if(i>j) return 0;
+
+            // if both pointers are at same index, return 1.
+            if(i==j) return 1;
+
+
+        // If characters match, move both indices back and add 1 to the result
+        if (text1[i] == text1[j]) {
+            return 2 + helper(text1, i + 1,j - 1);
+        } else {
+            // Otherwise, find the maximum by either:
+            // - Moving index s2 back
+            // - Moving index s1 back
+            return max(helper(text1, i + 1,j), helper(text1, i,j - 1));
+        }
+    }
+public:
+    int longestPalindromeSubseq(string s) {
+          return helper(s,0,s.length() - 1);
+    }
+};
