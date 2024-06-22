@@ -1,0 +1,15 @@
+ public:
+    int stockBuyAndSell(int n, vector<int> &prices) {
+       int miniPrice = prices[0];
+        int maxProfit = 0;
+        for(int i = 1; i < n; i++){
+            int profit = prices[i]-miniPrice;
+            if(profit > 0 ){
+                maxProfit += profit;
+
+            }
+             miniPrice = prices[i];
+            
+        }
+        return maxProfit;
+    }
