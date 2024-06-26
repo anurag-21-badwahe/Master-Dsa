@@ -1,0 +1,19 @@
+	public:
+	int maxSumIS(int arr[], int n)  
+	{  
+	   vector<int>next(n+1,0),curr(n+1,0);
+	    
+	    for(int ind = n-1; ind >= 0; ind--){
+	        for(int prev = n-1; prev >= -1; prev--){
+	            int excld = 0 + next[prev+1];
+                int incld = 0;
+                if(prev == -1 || arr[ind] > arr[prev]){
+                    incld =  arr[ind] + next[ind+1];
+                }
+        
+               curr[prev+1] = max(incld,excld);
+	        }
+	        next = curr;
+	    }
+	    return curr[-1+1];
+	} 
