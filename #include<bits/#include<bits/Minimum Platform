@@ -1,0 +1,27 @@
+sort(arr, arr + n);
+    sort(dep, dep + n);
+
+    // Platforms needed at a time
+    int platforms_needed = 0;
+    int max_platforms = 0;
+
+    // Two pointers to traverse the arrival and departure arrays
+    int i = 0, j = 0;
+
+    while (i < n && j < n) {
+        // If next event is an arrival, increment platform count
+        if (arr[i] <= dep[j]) {
+            platforms_needed++;
+            i++;
+            // Update the maximum platforms needed
+            if (platforms_needed > max_platforms)
+                max_platforms = platforms_needed;
+        }
+        // Else decrement platform count (train departs)
+        else {
+            platforms_needed--;
+            j++;
+        }
+    }
+
+    return max_platforms;
