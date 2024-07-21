@@ -1,0 +1,45 @@
+class Solution {
+private:
+    bool isSafe(int newX, int newY, vector<vector<int>> &visited, vector<vector<int>> &mat, int n) {
+        return (newX >= 0 && newY >= 0 && newX < n && newY < n && visited[newX][newY] == 0 && mat[newX][newY] == 1);
+    }
+
+    void solve(int x, int y, int n, vector<string> &ans, vector<vector<int>> &mat, string path, vector<vector<int>> &visited) {
+        if (x == n - 1 && y == n - 1) {
+            ans.push_back(path);
+            return;
+        }
+
+        visited[x][y] = 1;
+
+        // Upward
+        if (isSafe(x - 1, y, visited, mat, n)) {
+            solve(x - 1, y, n, ans, mat, path + "U", visited);
+        }
+        // Downward
+        if (isSafe(x + 1, y, visited, mat, n)) {
+            solve(x + 1, y, n, ans, mat, path + "D", visited);
+        }
+        // Left
+        if (isSafe(x, y - 1, visited, mat, n)) {
+            solve(x, y - 1, n, ans, mat, path + "L", visited);
+        }
+        // Right
+        if (isSafe(x, y + 1, visited, mat, n)) {
+            solve(x, y + 1, n, ans, mat, path + "R", visited);
+        }
+
+        visited[x][y] = 0;
+    }
+
+public:
+    vector<string> findPath(vector<vector<int>> &mat) {
+        int n = mat.size();
+        vector<string> ans;
+        if (mat[0][0] == 0) return ans;
+        vector<vector<int>> visited(n, vector<int>(n, 0));
+        string path = "";
+        solve(0, 0, n, ans, mat, path, visited);
+        return ans;
+    }
+};
